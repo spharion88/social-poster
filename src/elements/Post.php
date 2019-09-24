@@ -118,7 +118,11 @@ class Post extends Element
             $this->title = $owner->title;
         }
 
-        $this->settings = Json::decode($this->settings, true);
+        try {
+		    $this->settings = Json::decode($this->settings, true);
+		} catch (\yii\base\InvalidArgumentException $e) {
+		    $this->settings = [];
+		}
         $this->response = Json::decode($this->response, true);
         $this->data = Json::decode($this->data, true);
     }
